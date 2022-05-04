@@ -1,0 +1,40 @@
+</main>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+    crossorigin="anonymous"></script>
+
+    <script>
+        if (window.location.pathname === "/") {
+          document.title = "108SHOP"
+        } else if (window.location.pathname === "/shop") {
+          document.title = "Shop";
+          document.getElementById("shop").classList.toggle("active");
+        } else if (window.location.pathname === "/login") {
+          document.title = "Login";
+          document.getElementById("login").classList.toggle("active");
+        } else if (window.location.pathname === "/register") {
+          document.title = "Sign Up";
+          document.getElementById("register").classList.toggle("active");
+        } else if (window.location.pathname === "/shop/new") {
+          document.title = "Add Product"
+          document.getElementById("newProduct").classList.toggle("active");
+        } else if (window.location.pathname === "/orders/order-management") {
+          document.title = "Order Management"
+          document.getElementById("orderManagement").classList.toggle("active");
+        }  else if (window.location.pathname === "/") {
+          document.title = "108SHOP"
+        } 
+
+    </script>
+</body>
+
+<footer class="footer bg-dark py-3 mt-auto">
+    <div class="container">
+        <span class="text-muted">&copy; Shop 2020</span>
+    </div>
+</footer>
+
+</html>

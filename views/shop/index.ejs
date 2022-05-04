@@ -1,0 +1,44 @@
+<!-- include header -->
+<%- include('../include/_header') %>
+<!-- /include header -->
+
+
+
+    <h1 class="mb-3"><i class="fas fa-store"></i> All Products</h1>
+
+    <% for (let product of products){%>
+    <div class="card mb-3">
+        <div class="row">
+            <div class='col-md-4'>
+                <%if(product.images.length) {%>
+                    <img class="img-fluid fit-image" alt="" src="<%=product.images[0].url%>">
+                    <% }else {%>
+                    <img class="img-fluid" alt="no image available"
+                        src="https://res.cloudinary.com/dpig2x0hp/image/upload/v1620892502/Shop/depositphotos_247872612-stock-illustration-no-image-available-icon-vector_regfzz.jpg">
+                    <% } %>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"><%= product.title %> </h5>
+                    <p class="card-text"><%= product.description %></p>
+                    <h2 class="d-grid gap-3 d-md-flex justify-content-end mb-3 p-2" style="color: #F95030;">฿<%=product.price%></h2>
+                    <div class="d-grid gap-3 d-md-flex justify-content-end ">
+                        <a class="btn btn-outline-success" href="/shop/<%=product._id%>">View <%=product.title%></a>
+                        <form action="/cart" method="POST">
+                            <button class="btn btn-success" type="submit"><i class="fas fa-cart-arrow-down"></i> Add to Cart</button>
+                            <input type="hidden" name="productId" value="<%= product._id %>">
+                        </form>
+                         
+                      </div>
+                 
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <% }%>
+
+
+<!-- include footer -->
+<%- include('../include/_footer') %>
+<!-- /include footer -->

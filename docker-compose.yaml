@@ -1,0 +1,50 @@
+version: '3'
+
+services: 
+    load_balancer:
+        image: haproxy:1.7.14-alpine
+        ports: 
+            - "3000:3000"
+        volumes: 
+            - ./haproxy:/usr/local/etc/haproxy
+        depends_on: 
+            - node1
+            - node2
+            - node3
+    node1:
+      image:  pop191/my-app-0.0.4
+      environment:
+        - APP_ID=1
+        
+    node2:
+      image:  pop191/my-app-0.0.4
+      environment:
+        - APP_ID=2
+
+    node3:
+      image:  pop191/my-app-0.0.4
+      environment:
+        - APP_ID=3
+
+    mongodb:
+      image: mongo
+      ports:
+        - 27017:27017
+      environment:
+        - MONGO_INITDB_ROOT_USERNAME=admin
+        - MONGO_INITDB_ROOT_PASSWORD=password
+      volumes:
+        - mongo-data:/data/db
+            
+    mongo-express:
+      image: mongo-express
+      ports:
+        - 8080:8081
+      environment:
+        - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+        - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+        - ME_CONFIG_MONGODB_SERVER=mongodb
+
+volumes:
+  mongo-data:
+    driver: local

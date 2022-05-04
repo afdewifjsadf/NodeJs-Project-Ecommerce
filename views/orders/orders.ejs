@@ -1,0 +1,81 @@
+<!-- include header -->
+<%- include('../include/_header') %>
+    <!-- /include header -->
+    <h1 class="mb-3"><i class="fas fa-truck"></i></i> 
+                <% if(currentUser.role === "Admin") {%> 
+                      <%= `All Orders` %> 
+                <%} else {%> 
+                    <%= `My Orders` %> 
+                <%}%>
+    </h1>
+    <% if (orders.length <=0) { %>
+        <h1>NO ORDERS</h1>
+        <% } else { %>
+            <% orders.forEach(order=> { %>
+                <div class="card mb-3">
+                    <h5 class="card-header">Order - # <%= order._id %> 
+                        <% if(order.status === 'wait'){ %> 
+                        <span class='badge rounded-pill bg-danger'>รอการยืนยันการสั่งสินค้า</span>
+                        <% }else if(order.status === 'confirm') {%> 
+                        <span class='badge rounded-pill bg-warning text-dark'>รอการจัดส่งสินค้า</span>
+                        <% } else if(order.status === 'delivery') {%> 
+                        <span class='badge rounded-pill bg-primary'>จัดส่งสินค้าแล้ว</span>
+                        <% } else if(order.status === 'get') {%> 
+                            <span class='badge rounded-pill bg-success'>ได้รับสินค้า</span>
+                        <% } %>  
+                    </h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-5">
+                                <strong>Product List</strong><br>
+                                <ul>
+                                    <% order.products.forEach(p=> { %>
+                                        <li >
+                                            <%= p.product.title %> (<%= p.quantity %>) - <%= p.product.price * p.quantity %> บาท
+                                        </li>
+                                    <% }); %>
+                                </ul>
+
+                            </div>
+                            <div class="col-4">
+                                <address>
+                                   <strong>Contact</strong><br>
+                                   <%= order.contact.firstName %> <%= order.contact.lastName %> <br>  
+                                    <%= order.contact.address%><br>
+                                    <%= order.contact.state%><br>
+                                    <%= order.contact.city%><br>
+                                    <%= order.contact.zip%>
+                                </address>
+                                
+                            </div>
+                            <div class="col-3">
+                                <% if(order.trackNumber) {%>
+                                    <div class="mb-3">
+                                        <strong>Track Number</strong><br>
+                                        <li><%= order.trackNumber %> </li>
+                                    </div>
+                                <% } %> 
+                                <% if(currentUser.role === "Admin") {%>
+                                    <a  class="btn btn-outline-dark" href="/orders/<%=order._id%>/edit">Edit</a>
+                                <% } %> 
+                                <% if(currentUser.role === "User" && order.status === 'delivery') {%>
+                                    <form action="/orders/<%= order._id%>/user?_method=PUT" method="POST">
+                                        <button  class=" btn btn-success">ได้รับสินค้า</button>
+                                    </form>
+                                <% } %> 
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                </div>
+                <% }); %>
+                    <% } %>
+
+
+
+
+<!-- include footer -->
+<%- include('../include/_footer') %>
+<!-- /include footer -->

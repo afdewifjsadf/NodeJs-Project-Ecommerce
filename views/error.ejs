@@ -1,0 +1,19 @@
+<!-- include header -->
+<%- include('include/_header') %>
+<!-- /include header -->
+
+<div class='row'>
+    <div class='col-8 offset-2'>
+           <div class='alert alert-danger' role='alert'>
+               <h4 class='alert-heading'><i class="fas fa-exclamation-triangle"></i> <%= err.message %></h4>
+               <% if (process.env.NODE_ENV !=='production') {%> 
+               <p><%= err.stack %></p>
+              <% } %>
+           </div>
+       </div>
+ </div>
+      
+
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- /include footer -->

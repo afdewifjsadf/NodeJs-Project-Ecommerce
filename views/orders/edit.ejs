@@ -1,0 +1,37 @@
+
+<!-- include header -->
+<%- include('../include/_header') %>
+<!-- /include header -->
+
+
+<div class="row">
+<h1 class="text-center">Edit Order</h1>
+<div class="col-md-6 offset-md-3">
+    <form action="/orders/<%= order._id %>?_method=PUT" method="POST"  >
+        <div class="mb-3">
+            <label class="form-label" for="title">Trank Numaer</label>
+            <input class="form-control" type="text" id="title" name="order[trackNumber]" value="<%= order.trackNumber %>" >
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+     
+        <div class="mb-3">
+            <label class="form-label" for="status">Product Price</label>
+            <select class="form-select" aria-label="Default select example" id="status" name="order[status]">
+            <% status.forEach((x)=>{ %> 
+                <option value="<%= x %>" <%= x===order.status? 'selected':'' %> ><%=x%></option>
+            <% }) %> 
+              </select>
+        </div>
+
+            <button class="btn btn-success">Update Order</button>
+        </div>
+    </form>
+</div>
+</div>
+
+
+<!-- include footer -->
+<%- include('../include/_footer') %>
+<!-- /include footer -->

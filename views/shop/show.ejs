@@ -1,0 +1,71 @@
+<!-- include header -->
+<%- include('../include/_header') %>
+<!-- /include header -->
+
+
+
+<div class="row">
+    <div class="col-6">
+
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
+              <% product.images.forEach((img,i) =>{ %> 
+              <div class="carousel-item <%= i===0? 'active':'' %>">
+                <img class="d-block w-100" src="<%= img.url %> " alt="First slide">
+              </div>
+              <% }) %> 
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+
+
+    </div>
+    <div class="col-6">
+        <div class="card mb-3">
+            <img src="<%= product.imageUrl%>" class="d-block w-100" alt="">
+            <div class="card-body">
+                <h5 class="card-title"><%= product.title%></h5>
+                <p class="card-text"><%= product.description%></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h2 style="color: #F95030;">฿<%= product.price%></h2></li>
+            </ul>
+            <%  if( currentUser && product.author.equals(currentUser._id))  {%>
+            <div class="card-body">
+                <a class="card-link btn  btn-warning" href="/shop/<%=product._id%>/edit">Edit</a>
+                <form class="d-inline" action="/shop/<%=product._id%>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+            <% }else{ %>
+            <div class="m-2">
+              <form action="/cart" method="POST">
+                <input type="hidden" name="productId" value="<%= product._id %>">
+                <div class="form-outline">
+                  <input type="number" id="typeNumber" class="form-control"  min="1" name="quantity" placeholder="quantity"/>
+                </div>
+                <button class="btn btn-success col-12 mt-2" type="submit"><i class="fas fa-cart-arrow-down"></i> Add to Cart</button>
+              </form>
+            </div>
+            <% } %> 
+            <div class="card-footer text-muted">
+              Create by <%= product.author.username%>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- include footer -->
+<%- include('../include/_footer') %>
+<!-- /include footer -->
